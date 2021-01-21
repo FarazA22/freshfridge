@@ -25,6 +25,10 @@ const householdReducer = (state = initialState, action) => {
       };
     }
 
+    case types.LOG_HOUSEHOLD_OUT: {
+      return initialState;
+    }
+
     default: {
       return state;
     }
