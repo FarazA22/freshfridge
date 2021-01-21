@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/actions';
+import SignUpModal from '../components/SignUpModal';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -12,7 +13,14 @@ const mapDispatchToProps = (dispatch) => {
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
-    }
+    this.state = { openSignUp: false };
+    this.openPopUp = this.openPopUp.bind(this);
+  }
+
+  openPopUp() {
+    let newVal = !this.state.openSignUp;
+    return this.setState({ openSignUp: newVal });
+  }
 
   render() {
     return (
@@ -55,8 +63,9 @@ class LoginContainer extends Component {
         
         <p>
           Don't have an account? 
-          <a href="#"> Sign up here! 
+          <a href="#"> Sign up here!
           {/* pop open the Sign up Modal or reroute to Sign up page */}
+          <SignUpModal handleOpen={openPopUp} open={this.state.openSignUp} />
           </a>
         </p>
     </div>
