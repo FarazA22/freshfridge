@@ -2,19 +2,35 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/actions';
+import SignUpModal from '../components/SignUpModal';
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loggingIn: (username, password, history) => dispatch(actions.loggingIn(username, password, history)),
+    createUser: (firstName, username, password) => dispatch(actions.createUser(firstName, username, password)),
   }
 }
 
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
-    }
+    this.state = { openSignUp: false };
+    this.openPopup = this.openPopup.bind(this);
+    this.closePopup = this.closePopup.bind(this);
+  }
+
+  openPopup() {
+    console.log('opening');
+    return this.setState({ openSignUp: true });
+  }
+
+  closePopup() {
+    console.log('closing');
+    return this.setState({ openSignUp: false });
+  }
 
   render() {
+    console.log(this.state);
     return (
 
       <div className="logInForm">
@@ -57,8 +73,22 @@ class LoginContainer extends Component {
         
         <p>
           Don't have an account? 
-          <a href="#"> Sign up here! 
+          <a href="#"> Sign up here!
+          <button onClick={this.openPopup} />
           {/* pop open the Sign up Modal or reroute to Sign up page */}
+            <SignUpModal createUser={this.props.createUser} openPopup={this.state.openSignUp} handleClose={this.closePopup}>
+              {/* <div>
+                <input id="firstName" type="text" placeholder="First Name..." />
+                <br />
+                <input id="username" type="text" placeholder="Username..." />
+                <br />
+                <input id="password" type="password" placeholder="Password..." />
+                <br />
+                <input id="confirmPass" type="password" placeholder="Confirm password..." />
+                <br />
+                <button>Sign Up!</button>
+              </div> */}
+            </SignUpModal>
           </a>
         </p>
     </div>
