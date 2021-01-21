@@ -69,8 +69,29 @@ class App extends Component {
     return (
       <div>
         <div className="appHeader">
-          {/* logo */}
-          {/* displayNavBar */}
+          {logo}
+          {displayNavBar}
+
+        </div>
+
+        <div className="content2by2">
+          <RoutesForApp />
+        </div>
+      </div>
+    );
+  }
+};
+
+//export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
+/*
+
+
+
+
           <Link to="/user"> 
             <img
               id="logo"
@@ -88,22 +109,16 @@ class App extends Component {
             getUserItems={this.props.getUserItems}
             getHouseholdItems={this.props.getHouseholdItems}
           />
-        </div>
-
-        <div className="content2by2">
-          <RoutesForApp />
-        </div>
-      </div>
-    );
-  }
-};
-
-//export default App;
-export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
 
-/*
+
+
+
+
+
+
+
 
 KAT AND HEIDI'S OG CODE:
 
