@@ -29,6 +29,7 @@ const NavBar = ({ userID, householdID, logOut, getUserItems, getHouseholdItems }
         exact
         activeClassName="navbar_link--active"
         className="navbar_link"
+        onClick={logOut}
         to="/"
         >Sign Out
       </NavLink>
