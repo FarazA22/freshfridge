@@ -1,22 +1,57 @@
 import React from 'react';
-import { Dialog } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@material-ui/core';
 
 const SignUpModal = (props) => {
-  const { title, children, handleOpen, open } = props;
+  const { createUser, children, openPopup, handleClose } = props;
   return (
-    <>
-      <button type="button" onClick={handleOpen}>
-        Sign Up Here!
-      </button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="sign-up page"
-        aria-describedby="sign-up page"
-      >
-        <h2>Sign Up Here!</h2>
-      </Dialog>
-    </>
+    <Dialog open={openPopup}>
+      <DialogTitle>
+        <div>Sign Up for Fresh Fridge!</div>
+      </DialogTitle>
+      <DialogContent dividers>
+        {/* {children} */}
+        <TextField
+          autoFocus
+          margin="dense"
+          id="firstName"
+          label="First Name..."
+          type="text"
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          id="username"
+          label="Username..."
+          type="text"
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          id="password"
+          label="Password..."
+          type="password"
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          id="confirmPass"
+          label="Confirm password..."
+          type="password"
+          fullWidth
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>
+          Sign Up!
+        </Button>
+        <Button onClick={handleClose}>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
