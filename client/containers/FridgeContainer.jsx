@@ -23,22 +23,40 @@ class FridgeContainer extends Component {
     let fridgeItems = [];
 
     if (!props.householdItems) {
-      // render the user fridge 
+      // render the user page 
       const { userID, firstName, userItems } = props;
-      const { addItem, editItem, deleteItem } = this.props;
+      const { editItem, deleteItem } = this.props;
       
       userItems.forEach((item, idx) => {
-        fridgeItems.push(
+        if (item.fridge){
+          fridgeItems.push(
           <FridgeItem 
-
+            key={`UF${idx}`}
+            isHousehold={false}
+            item={item}
+            editItem={editItem}
+            deleteItem={deleteItem}
           />)
+        }
+
       })
 
-
-
-
     } else {
-      // household
+      const { householdID, householdName, householdItems } = props;
+      const { editItem, deleteItem } = this.props;
+      
+      householdItems.forEach((item, idx) => {
+        if (item.fridge){
+          fridgeItems.push(
+            <FridgeItem
+              key={`HF${idx}`}
+              isHousehold={true}
+              item={item}
+              editItem={editItem}
+              deleteItem={deleteItem}
+            />)
+        }
+      })
     }
 
     // need to have logic to check if this.props:

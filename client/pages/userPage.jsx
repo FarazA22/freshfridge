@@ -39,4 +39,4 @@ class User extends Component {
 }
 
 export default connect(mapStateToProps, null)(User);
-export default withRouter(User);
+//export default withRouter(User);

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 
-const GroceryItem = (props) => {
+const GroceryItem = ({ key, isHousehold, item, editItem, deleteItem }) => {
+  const { itemName, shared, fridge, grocery, itemUserId, itemFirstName } = item;
+  
+  let name;
 
-  // destructure the props object
-
-    // confirm if username is null,
-
-    let name;
-    if (!username) {
-      name = null
-    } else {
-      name = <span> {props.username} </span>;
-    }
+  if (isHousehold) {
+    name = <span> {itemFirstName} </span>; 
+  } else {
+    name = null;
+  } 
 
   return (
     <div className = 'GroceryItemCard' key={`G${index}`}  >
-      <span> {/* item name */}   </span>
-      {name}
+      <span> 
+        {itemName}   
+        {name}
+        {shareable}
+      </span>
       <button id='MoveToFridgeBtn'
           onClick={() => {/* 
             * put a fridge image
