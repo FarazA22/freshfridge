@@ -73,24 +73,14 @@ class LoginContainer extends Component {
         
         <p>
           Don't have an account? 
-          <a href="#"> Sign up here!
-          <button onClick={this.openPopup} />
+          <a href="#" onClick={this.openPopup}> Sign up here!</a>
           {/* pop open the Sign up Modal or reroute to Sign up page */}
-            <SignUpModal createUser={this.props.createUser} openPopup={this.state.openSignUp} handleClose={this.closePopup}>
-              {/* <div>
-                <input id="firstName" type="text" placeholder="First Name..." />
-                <br />
-                <input id="username" type="text" placeholder="Username..." />
-                <br />
-                <input id="password" type="password" placeholder="Password..." />
-                <br />
-                <input id="confirmPass" type="password" placeholder="Confirm password..." />
-                <br />
-                <button>Sign Up!</button>
-              </div> */}
-            </SignUpModal>
-          </a>
-        </p>
+            <SignUpModal 
+              createUser={this.props.createUser}
+              openPopup={this.state.openSignUp}
+              handleClose={this.closePopup}
+            />
+          </p>
     </div>
 
     );

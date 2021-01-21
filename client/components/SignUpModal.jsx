@@ -44,7 +44,7 @@ const SignUpModal = (props) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button onClick={handleClose} color="primary">
           Sign Up!
         </Button>
         <Button onClick={handleClose}>
