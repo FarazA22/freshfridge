@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // dispatchers for NavBar
   return {
-    logOut: (userID) => dispatch(actions.loggingOut(userID)),
+    logOut: () => dispatch(actions.loggingOut()),
     getUserItems: (userID) => dispatch(actions.getUserItems(userID)),
     getHouseholdItems: (householdID) => dispatch(actions.getHouseholdItems(householdID)),
     //loggingIn: (username, password) => dispatch(actions.loggingIn(username, password)),

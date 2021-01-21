@@ -48,8 +48,6 @@ class GroceryContainer extends Component {
           deleteItem={deleteItem}
           
         />
-
-        />;
       })
 
     } else {
