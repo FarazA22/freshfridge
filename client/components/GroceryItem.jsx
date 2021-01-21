@@ -1,34 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react';
 
-const GroceryItem = (props) => {
-
-  // destructure the props object
-
-    // confirm if username is null,
-
-    let name;
-    if (!username) {
-      name = null
-    } else {
-      name = <span> {props.username} </span>;
-    }
-
-  return (
-    <div className = 'GroceryItemCard' key={`G${index}`}  >
-      <span> {/* item name */}   </span>
-      {name}
-      <button id='MoveToFridgeBtn'
-          onClick={() => {/* 
-            * put a fridge image
-            * event handler -> to invoke the dispatcher to create 
-          */}}> 
-      </button>
-      <button id='EditItemBtn' onClick={() => {/* event handler to invoke dispatcher to edit */ }}>
-      </button>
-      <button id='DeleteItemBtn' onClick={() => {/* event handler to invoke dispatcher to delete */ }}>
-      </button>
+const GroceryItem = ({ isHousehold, item, editItem, deleteItem }) => {
+  const { itemName, shared, fridge, grocery, itemUserId, itemFirstName } = item;
+  
+  let name;
+  let shareable;
+  
+  if (isHousehold) {
+    name = <span> {itemFirstName} </span>;
+  } else {
+    name = null;
+  } 
+  
+  if (shared) {
+    shareable = 
+    <div id='shareable'>
+      <span>shared</span>
+      <img src="../assets/check.png"></img>
     </div>
-  )
-};
+  } else {
+    shareable = null;
+  }
 
-export default GroceryItem;
+  return (
+    <div className = 'GroceryItemCard' >
+      <span> {itemName} </span>  
+        {name}
+        {shareable}
+      <button id='MoveToFridgeBtn'
+          onClick={() => {/* 
+            * put a fridge image
+            * event handler -> to invoke the dispatcher to create 
+          */}}> 
+      </button>
+      <button id='EditItemBtn' onClick={() => {/* event handler to invoke dispatcher to edit */ }}>
+        Edit
+      </button>
+      <button id='DeleteItemBtn' onClick={() => {/* event handler to invoke dispatcher to delete */ }}>
+        Delete
+      </button>
+    </div>
+  )
+};
+export default GroceryItem;

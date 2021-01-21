@@ -5,12 +5,6 @@ import * as actions from '../redux/actions/actions';
 import GroceryItem from '../components/GroceryItem.jsx';
 
 
-const mapStateToProps = (state) => {
-  // const { userID, firstName, userItems } = state.user;
-  // const { householdID, householdName, householdItems } = state.household;
-  // return { userID, firstName, userItems, householdID, householdName, householdItems };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     addItem: (itemInfoObj) => dispatch(actions.addItem(itemInfoObj)),
@@ -19,43 +13,47 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-
 class GroceryContainer extends Component {
   constructor(props){
     super(props)
-    // bind the event handlers
-    // this.addItemHandler = this.addItemHandler.bind(this);
   }
-
-  // declare event handlers
-  
-  // addItemHandler(payloadObject) {
-  //   /* Add add Item Dispatcher */
-  // }
 
   render() {
     let groceryItems;
 
-    if (!props.householdItems) {
+    if (!this.props.householdItems) {
       // render the user grocery list
-      const { userID, firstName, userItems } = props;
-      const { editItem, deleteItem} = this.props;
+      const { userID, firstName, userItems, editItem, deleteItem} = this.props;
     
-      groceryItems = householdItems.map((item, idx) => {
-        return <GroceryItem 
+      groceryItems = userItems.map((item, idx) => {
+        if (item.grocery) {
+        return <GroceryItem
+          key={`UG${idx}`} 
+          isHousehold={false}
           item={item}
           editItem={editItem}
           deleteItem={deleteItem}
-          
-        />
-      })
-
+          />
+        }
+      })  
+  
     } else {
 
-
-
-
+      const { householdID, householdName, householdItems, editItem, deleteItem } = this.props;
+      
+      groceryItems = householdItems.map((item, idx) => {
+        if (item.grocery){
+        return <GroceryItem
+              key={`HF${idx}`}
+              isHousehold={true}
+              item={item}
+              editItem={editItem}
+              deleteItem={deleteItem}
+          />
+        }
+      })  
     }
+
     // need to have logic to check if this.props:
     // if userItems.length === 0, then we are rendering for Household Page 
     // if householdItems.length === 0, then we are rendering for User Page
@@ -76,14 +74,11 @@ class GroceryContainer extends Component {
       </button>
 
       <div className="GroceryList">
-        {/* {groceryItems} */}
+        {groceryItems}
       </div>
-      
     </div>
     );
-  
   }
-
 };
 
 

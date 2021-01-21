@@ -20,7 +20,7 @@ const NavBar = ({ userID, householdID, logOut, getUserItems, getHouseholdItems }
         className="navbar_link"
         to="/household"
         >Household
-      </NavLink>
+      </NavLink> 
       {/* <Link>
         <button>
         </button>
