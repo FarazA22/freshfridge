@@ -26,7 +26,7 @@ const FridgeItem = ({ isHousehold, item, editItem, deleteItem }) => {
   }
 
   return (
-    <div className='fridgeItemCard'>
+    <div className='ItemCard'>
       <span> {itemName} </span>
       {name}
       {shareable}

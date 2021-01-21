@@ -23,7 +23,7 @@ const GroceryItem = ({ isHousehold, item, editItem, deleteItem }) => {
   }
 
   return (
-    <div className = 'GroceryItemCard' >
+    <div className = 'ItemCard' >
       <span> {itemName} </span>  
         {name}
         {shareable}
