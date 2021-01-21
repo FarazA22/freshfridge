@@ -22,12 +22,12 @@ class FridgeContainer extends Component {
   render() {
     let fridgeItems = [];
 
-    if (!props.householdItems) {
+
+    if (!this.props.householdItems) {
       // render the user page 
-      const { userID, firstName, userItems } = props;
-      const { editItem, deleteItem } = this.props;
+      const { userID, firstName, userItems, editItem, deleteItem  } = this.props;
       
-      userItems.forEach((item, idx) => {
+      userItems.map((item, idx) => {
         if (item.fridge){
           fridgeItems.push(
           <FridgeItem 
@@ -42,9 +42,8 @@ class FridgeContainer extends Component {
       })
 
     } else {
-      const { householdID, householdName, householdItems } = props;
-      const { editItem, deleteItem } = this.props;
-      
+      const { householdID, householdName, householdItems, editItem, deleteItem } = this.props;
+
       householdItems.forEach((item, idx) => {
         if (item.fridge){
           fridgeItems.push(
@@ -59,27 +58,14 @@ class FridgeContainer extends Component {
       })
     }
 
-    // need to have logic to check if this.props:
-      // if userItems.length === 0, then we are rendering for Household Page 
-      // if householdItems.length === 0, then we are rendering for User Page
-
-    
-
-    // iterate through items list and push <FridgeItem > for each item
-    // for (let i = 0; i < this.props.userItems.length; i += 1) {
-    //   fridgeItems.push(<FridgeItem />)
-    // }
-
-  
-
     return (
-    <div className="FridgeContainer"> {/*Faraz, please rename the className to LoginContainer and match in stylesheet*/}
+    <div className="FridgeContainer">
       <h1> Fridge </h1>
       <button id='AddItemBtn' onClick={() => {/*  
         invoke the AddItemModal
         pass into the AddItem a property of "location: fridge"
         <AddItem location={'fridge'} addItemHandler={this.addItemHandler} userID={this.props.userID} householdID={this.props.householdID}
-      */ }}>
+      */}}>
         </button>
       <div className='FridgeList'>  
       {fridgeItems}
@@ -94,3 +80,7 @@ class FridgeContainer extends Component {
 
 export default connect(null, mapDispatchToProps)(FridgeContainer);
 //export default FridgeContainer;
+
+/*
+
+*/

@@ -21,10 +21,9 @@ class GroceryContainer extends Component {
   render() {
     let groceryItems;
 
-    if (!props.householdItems) {
+    if (!this.props.householdItems) {
       // render the user grocery list
-      const { userID, firstName, userItems } = props;
-      const { editItem, deleteItem} = this.props;
+      const { userID, firstName, userItems, editItem, deleteItem} = this.props;
     
       groceryItems = userItems.map((item, idx) => {
         if (item.grocery) {
@@ -40,10 +39,9 @@ class GroceryContainer extends Component {
   
     } else {
 
-      const { householdID, householdName, householdItems } = props;
-      const { editItem, deleteItem } = this.props;
+      const { householdID, householdName, householdItems, editItem, deleteItem } = this.props;
       
-      groceryItems = userItems.map((item, idx) => {
+      groceryItems = householdItems.map((item, idx) => {
         if (item.grocery){
         return <GroceryItem
               key={`HF${idx}`}

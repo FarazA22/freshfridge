@@ -3,22 +3,30 @@ import React, { Component } from 'react';
 // import Delete Model
 
 
-const FridgeItem = ({ key, isHousehold, item, editItem, deleteItem }) => {
+const FridgeItem = ({ isHousehold, item, editItem, deleteItem }) => {
   const { itemName, shared, fridge, grocery, itemUserId, itemFirstName } = item;
   
   let name;
-  let shared;
-  
+  let shareable;
+
   if (isHousehold){
     name = <span> {itemFirstName} </span>;
-
   } else {
     name = null;
-
   } 
 
+  if (shared){
+    shareable = 
+      <div id='shareable'>
+        <span>shared</span>
+        <img src="../assets/check.png"></img>
+      </div>
+  } else {
+    shareable = null;
+  }
+
   return (
-    <div className='fridgeItemCard' key={`F${index}`}>
+    <div className='fridgeItemCard'>
       <span> {itemName} </span>
       {name}
       {shareable}
@@ -26,14 +34,16 @@ const FridgeItem = ({ key, isHousehold, item, editItem, deleteItem }) => {
       
       event handler to invoke dispatcher to edit 
       
-      */ }}>
+      */ }}
+      > Edit
       </button>
       <button id='DeleteItemBtn' onClick={() => {/*
       
       event handler to invoke dispatcher to delete 
       
       
-      */ }}>
+      */ }}
+      > Delete
       </button>
     </div>  
   )
