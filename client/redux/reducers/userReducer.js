@@ -25,6 +25,10 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn: action.payload,
       };
     }
+
+    case types.LOG_USER_OUT: {
+      return initialState;
+    }
     
     case types.USER_INFO: {
       let newUserItems;

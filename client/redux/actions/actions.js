@@ -105,16 +105,17 @@ export const createUser = (firstName, username, password) => ( dispatch ) => {
 
 
 // to log out of account
-export const loggingOut = (userID) => ( dispatch ) => {
+export const loggingOut = () => ( dispatch ) => {
 
   fetch('/auth/logout', {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Content-Type': 'Application/JSON',
-    },
-    body: JSON.stringify({
-      userID: userID,
-    }),
+    }
+    // ,
+    // body: JSON.stringify({
+    //   userID: userID,
+    // }),
   })
     .then((data) => data.json())
     .then((data) => {
@@ -122,7 +123,13 @@ export const loggingOut = (userID) => ( dispatch ) => {
       dispatch({
         type: types.IS_LOGGED_OUT,
         payload: false,
-      })
+      });
+      dispatch({
+        type: types.LOG_USER_OUT
+      });
+      dispatch({
+        type: types.LOG_HOUSEHOLD_OUT
+      });
     })
     .catch((e) => {
       console.log(`ERROR in Actions.js - loggingOut: ${e}`)
