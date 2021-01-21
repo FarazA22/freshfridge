@@ -1,21 +1,21 @@
 import React from 'react';
-import Modal from '@material-ui/core/Modal';
+import { Dialog } from '@material-ui/core';
 
 const SignUpModal = (props) => {
-  const { handleOpen, open } = props;
+  const { title, children, handleOpen, open } = props;
   return (
     <>
       <button type="button" onClick={handleOpen}>
         Sign Up Here!
       </button>
-      <Modal
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="sign-up page"
         aria-describedby="sign-up page"
       >
         <h2>Sign Up Here!</h2>
-      </Modal>
+      </Dialog>
     </>
   );
 };
