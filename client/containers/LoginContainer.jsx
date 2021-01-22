@@ -1,49 +1,149 @@
 import React, { Component } from 'react';
-//import Auth from '../components/Auth.jsx';
-// import GoogleAuth from './GoogleAuth.jsx';
-import '../styles/login.scss';
+// import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions/actions';
+import SignUpModal from '../components/SignUpModal';
 
 const mapDispatchToProps = (dispatch) => {
-  // dispatcher for sending fetch for login
-  // dispatcher for sending fetch for signup
+  return {
+    loggingIn: (username, password, history) =>
+      dispatch(actions.loggingIn(username, password, history)),
+    createUser: (firstName, username, password) =>
+      dispatch(actions.createUser(firstName, username, password)),
+  };
 };
 
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
-    // bind the event handlers
+    this.state = { openSignUp: false };
+    this.openPopup = this.openPopup.bind(this);
+    this.closePopup = this.closePopup.bind(this);
   }
 
-  // declare event handlers
+  openPopup() {
+    console.log('opening');
+    return this.setState({ openSignUp: true });
+  }
+
+  closePopup() {
+    console.log('closing');
+    return this.setState({ openSignUp: false });
+  }
 
   render() {
+    console.log(this.state);
     return (
       <div className="logInForm">
-        <h1>Sign Up Now</h1>
-        <input type="email" className="inputBox" placeholder="Your Email" />
+        <h1>Please Log In </h1>
+        <input
+          type="text"
+          className="inputBox"
+          id="usernameInput"
+          placeholder="username"
+        />
         <input
           type="password"
           className="inputBox"
-          placeholder="Your Password"
+          id="passwordInput"
+          placeholder="password"
         />
-        <input type="button" class="primaryButton" value="Submit" />
-        <hr />
-        <p className="or">OR</p>
-        <input
+        <button
           type="button"
-          class="secondaryButton"
-          value="Login with Google"
-        />
+          className="primaryButton"
+          onClick={() => {
+            const usernameInput = document.getElementById('usernameInput')
+              .value;
+            const passwordInput = document.getElementById('passwordInput')
+              .value;
+
+            console.log(usernameInput);
+            console.log(passwordInput);
+            console.log('this.props.history: ' + this.props.history);
+            // this.props.history.push('/user');
+
+            this.props.loggingIn(
+              usernameInput,
+              passwordInput,
+              this.props.history
+            );
+          }}
+        >
+          login
+        </button>
+
+        <hr />
+
+        <p className="or">OR</p>
+
+        <button type="button" className="secondaryButton">
+          Login with Google
+        </button>
+
         <p>
-          Do you have an account? <a href="#">Sign in</a>
+          Don't have an account?
+          <a href="#" onClick={this.openPopup}>
+            {' '}
+            Sign up here!
+          </a>
+          {/* pop open the Sign up Modal or reroute to Sign up page */}
+          <SignUpModal
+            createUser={this.props.createUser}
+            openPopup={this.state.openSignUp}
+            handleClose={this.closePopup}
+          />
         </p>
       </div>
     );
   }
 }
 
-//export default connect(null, mapDispatchToProps)(LoginContainer);
-export default LoginContainer;
+export default connect(null, mapDispatchToProps)(LoginContainer);
+//export default LoginContainer;
+
+/*
+testing the link button
+
+        <Link {/*to='/user' }>
+        <button type="button" className="primaryButton"
+        onClick={() => {
+          const usernameInput = document.getElementById('usernameInput').value;
+          const passwordInput = document.getElementById('passwordInput').value;
+
+          console.log(usernameInput);
+          console.log(passwordInput);
+
+          this.props.loggingIn(usernameInput, passwordInput);
+        }}
+        >login</button>
+    </Link>
+
+*/
+
+/*
+      <div className="MainContainer">
+        {' '}
+        {/*Faraz, please rename the className to LoginContainer and match in stylesheet}
+        {/* 
+      input for Username 
+      input for Password
+      login button // onClick -> invoke dispatcher and pass as an argument {username: string, password: string}
+      sign up button with event handler to trigger the signup modal
+
+
+  <div className="logInForm">
+    <h1>Log In</h1>
+    <input type="email" className="inputBox" placeholder="Your Email" />
+    <input type="password" className="inputBox" placeholder="Your Password" />
+    <p>I agree to the Terms of Services</p>
+  </div>
+
+      }
+      </div>
+
+
+
+*/
 
 /*
 original loginContainer

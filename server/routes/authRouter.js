@@ -5,38 +5,42 @@ const router = express.Router();
 const cookieParser = require('cookie-parser');
 const authController = require('../controllers/authController.js');
 const listController = require('../controllers/listController.js');
+const bcryptController = require('../controllers/bcryptController.js');
 
 const app = express();
 app.use(cookieParser());
 app.use(express.json()); 
 
 // vanilla log in
-router.put('/login',    
+router.post('/login',    
   authController.findUser,
-  authController.validatePassword,
+  bcryptController.verifyPassword,
   authController.createSession,
   authController.setCookie,
-  // listController.getList,
+  listController.getUserList,
+  listController.getHouseholdList,
   (req, res) => res.status(200).json({
-    userId: res.locals.userId,
+    userID: res.locals.userID,
     firstName: res.locals.firstName,
     username: res.locals.username,
-    householdId: res.locals.householdId
+    householdID: res.locals.householdID,
+    userItems: res.locals.userItems,
+    householdItems: res.locals.householdItems
   }) // todo: what should be sent back on the response?
 );
 
-router.put('/signup',
+router.post('/signup',
   authController.getAllUsers,
-  authController.checkUniqueness,    
+  authController.checkUniqueness,   
+  bcryptController.hashPassword, 
   authController.addUser,
-  // authController.findUser,
   authController.createSession,
   authController.setCookie,
-  // listController.getList,
   (req, res) => res.status(200).json({
-    userId: res.locals.userId,
+    userID: res.locals.userID,
     firstName: res.locals.firstName,
     username: res.locals.username,
+    householdID: res.locals.householdID
   }) // todo: what should be sent back on the response?
 );
 
@@ -54,7 +58,6 @@ router.get('/users',
   authController.getAllUsers,
   (req, res) => res.status(200).json(res.locals.allUsers)
 )
-
 
 /* 
 TODO

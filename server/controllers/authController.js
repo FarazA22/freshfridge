@@ -38,16 +38,18 @@ authController.findUser = (req, res, next) => {
     console.log('findUser query result: ', result.rows);
     // if the response from the database is an empty array, that means no user was found with that name and password
     if (!result.rows.length) {
-      return res.status(203).send('Invalid username.');
+      return res.status(203).json({message: 'Invalid username.'});
     }
     else {
       // Add the found user id to res.locals so that it can be used by the next middleware.
       const { _id, first_name, username, password, household_id } = result.rows[0];
-      res.locals.userId = _id;
+      res.locals.userID = _id;
       res.locals.firstName = first_name;
       res.locals.username = username;
       res.locals.userPw = password;
-      res.locals.householdId = household_id;
+      res.locals.householdID = household_id;
+      // console.log(`houshold_id: ${household_id}`);
+      // console.log(`res.locals.householdID: ${res.locals.householdID}`);
       return next();
     }
   });
@@ -56,7 +58,7 @@ authController.findUser = (req, res, next) => {
 authController.validatePassword = (req, res, next) => {
   const { password } = req.body; 
   if (password === res.locals.userPw) return next(); 
-  else return res.status(203).send('Invalid password.');
+  else return res.status(203).json({message: 'Invalid password.'});
 }
 
 // query database to find out if a record already exists on users table with that username
@@ -66,7 +68,7 @@ authController.checkUniqueness = (req, res, next) => {
   res.locals.allUsers.forEach((user) => {
     if (user.username === username) {
       console.log('An account with that username already exists. Please log in or try a different username.')
-      return res.status(203).send('An account with that username already exists. Please log in or try a different username.');
+      return res.status(203).json({message: 'An account with that username already exists. Please log in or try a different username.'});
     }
   });
   console.log('Unique username');
@@ -75,7 +77,8 @@ authController.checkUniqueness = (req, res, next) => {
 
 authController.addUser = (req, res, next) => {
   // add this user to the database. We want to get their user id.
-  const { firstName, username, password } = req.body;
+  const { firstName, username } = req.body;
+  const { hashPw } = res.locals;
   // console.log('Name and password received at authController.addUser: ', name, password);
 
   // query for the _id on users table that matches the received name and password
@@ -83,7 +86,7 @@ authController.addUser = (req, res, next) => {
     `INSERT INTO users (first_name, username, password)
     VALUES ($1, $2, $3)
     RETURNING *`;
-  const values = [firstName, username, password];
+  const values = [firstName, username, hashPw ];
 
   // console.log("the addUser query: ", query, "values: ", values);
   db.query(query, values, (error, result) => {
@@ -93,19 +96,20 @@ authController.addUser = (req, res, next) => {
     }
 
     console.log('addUser query result: ', result.rows);
-    const {_id, first_name, username } = result.rows[0];
-    res.locals.userId = _id;
+    const {_id, first_name, username, household_id } = result.rows[0];
+    res.locals.userID = _id;
     res.locals.firstName = first_name;
     res.locals.username = username;
+    res.locals.householdID = household_id;
     return next();
   });
 };
 
 authController.logout = (req, res, next) => {
   try {
-    res.clearCookie('userId');
     const query = `DELETE FROM sessions WHERE cookie_id = ($1)`;
     const params = [req.cookies.ssid];
+    res.clearCookie('ssid');
     db.query(query, params, (error, result) => {
       if (error) return next({ log: `middleware error caught in authController.logout: ${error}` });
       return next();
@@ -123,31 +127,32 @@ authController.logout = (req, res, next) => {
 authController.setCookie = (req, res, next) => {
   // receives user id on res.locals (?)
   // sets a cookie
-  res.cookie('ssid', res.locals.userId); //->  res.cookie(key,value)
+  res.cookie('ssid', res.locals.userID); //->  res.cookie(key,value)
   console.log ('Cookie has been created!', res.cookie);
   return next();
 };
 
 authController.createSession = (req, res, next) => {
   const query = `INSERT INTO sessions (cookie_id, expires) VALUES ($1, current_timestamp + interval '1 hour');`;
-  const params = [res.locals.userId];
+  const params = [res.locals.userID];
   // console.loge(``)
   db.query(query, params, (error, result) => {
     if (error) return next({log: `middleware error caught in authController.createSession: ${error}`});
-    console.log(`session created with id ${res.locals.userId}`);
+    console.log(`session created with id ${res.locals.userID}`);
     return next();
   })
 };
 
 authController.isLoggedIn = (req, res, next) => {
   try {
+    if (!req.cookies.ssid) return res.status(203).json('User logged out. Please login.');
     const query = `SELECT cookie_id from sessions
       WHERE cookie_id = ($1) AND expires >= current_timestamp`;
     const params = [req.cookies.ssid];
     db.query(query, params, (error, result) => {
       console.log('query result:' + result)
       if (error) return next({log: `middleware error caught in authController.isLoggedIn: ${error}`});
-      if (!result.rows.length) return res.status(203).json('User logged out. Please login.');
+      if (!result.rows.length) return res.status(203).json({message: 'User logged out. Please login.'});
       return next();
     });
   } catch (error) {

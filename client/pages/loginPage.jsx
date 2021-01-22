@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-//import LoginContainer from '../containers/LoginContainer.jsx';
+import { withRouter } from 'react-router';
+
+import LoginContainer from '../containers/LoginContainer.jsx';
 import '../styles/login.scss';
 
-const mapDispatchToProps = (dispatch) => {};
 
 class Login extends Component {
   constructor(props) {
@@ -17,30 +18,11 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="logInForm">
-        <h1>Sign Up Now</h1>
-        <input type="email" className="inputBox" placeholder="Your Email" />
-        <input
-          type="password"
-          className="inputBox"
-          placeholder="Your Password"
-        />
-        <input type="button" class="primaryButton" value="Submit" />
-        <hr />
-        <p className="or">OR</p>
-        <input
-          type="button"
-          class="secondaryButton"
-          value="Login with Google"
-        />
-        <p>
-          Do you have an account? <a href="#">Sign in</a>
-        </p>
+      <div className='page' id='loginPage'>
+        <LoginContainer history={this.props.history}/>
       </div>
     );
   }
 }
 
-//const Login = () => <div>Login Works!</div>;
-
-export default Login;
+export default withRouter(Login);
