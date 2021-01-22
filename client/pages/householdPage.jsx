@@ -47,8 +47,7 @@ class Household extends Component {
     const { householdID, householdName, householdItems } = this.props;
 
     return( 
-    <div className='HouseGrid'>
-      House Page Works!
+    <div className='Page'>
       <FridgeContainer
         householdID={householdID}
         householdName={householdName}

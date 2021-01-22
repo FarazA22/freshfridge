@@ -21,8 +21,7 @@ class User extends Component {
     const { userID, firstName, userItems } = this.props;
     
     return( 
-    <div className='UserGrid'>
-      My User Page Works!
+    <div className='Page'>
       <FridgeContainer
         userID={userID}
         firstName={firstName}

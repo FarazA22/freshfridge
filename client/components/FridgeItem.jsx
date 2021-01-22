@@ -19,7 +19,7 @@ const FridgeItem = ({ isHousehold, item, editItem, deleteItem }) => {
     shareable = 
       <div id='shareable'>
         <span>shared</span>
-        <img src="../assets/check.png"></img>
+        <img id="sharedpic"  src="../assets/check.png"></img>
       </div>
   } else {
     shareable = null;
@@ -27,24 +27,27 @@ const FridgeItem = ({ isHousehold, item, editItem, deleteItem }) => {
 
   return (
     <div className='ItemCard'>
-      <span> {itemName} </span>
+      <span id='itemname'> {itemName} </span>
       {name}
       {shareable}
-      <button id='EditItemBtn' onClick={() => {/* 
+      <div id='CardBtns'>
+          <button id='EditItemBtn' onClick={() => {/* 
       
       event handler to invoke dispatcher to edit 
       
-      */ }}
-      > Edit
-      </button>
-      <button id='DeleteItemBtn' onClick={() => {/*
-      
-      event handler to invoke dispatcher to delete 
-      
-      
-      */ }}
-      > Delete
-      </button>
+            */ }}
+            > Edit
+        </button>
+          <button id='DeleteItemBtn' onClick={() => {/*
+          
+          event handler to invoke dispatcher to delete 
+          
+          
+          */ }}
+          > Delete
+          </button>
+      </div>
+
     </div>  
   )
 
