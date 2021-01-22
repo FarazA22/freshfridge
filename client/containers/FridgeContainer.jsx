@@ -59,15 +59,19 @@ class FridgeContainer extends Component {
     }
 
     return (
-    <div className="FridgeContainer">
-      <h1> Fridge </h1>
-      <button id='AddItemBtn' onClick={() => {/*  
-        invoke the AddItemModal
-        pass into the AddItem a property of "location: fridge"
-        <AddItem location={'fridge'} addItemHandler={this.addItemHandler} userID={this.props.userID} householdID={this.props.householdID}
-      */}}>
-        </button>
-      <div className='FridgeList'>  
+    <div className='Container'>
+       <div className="ContainerHeader">
+          <h1> Fridge </h1>
+          <button id='AddItemBtn' onClick={() => {/*  
+            invoke the AddItemModal
+            pass into the AddItem a property of "location: fridge"
+            <AddItem location={'fridge'} addItemHandler={this.addItemHandler} userID={this.props.userID} householdID={this.props.householdID}
+          */}}>
+            Add Item
+          </button>
+       </div>
+
+      <div className='ItemList'>  
       {fridgeItems}
       </div>
     </div>

@@ -54,25 +54,19 @@ class GroceryContainer extends Component {
       })  
     }
 
-    // need to have logic to check if this.props:
-    // if userItems.length === 0, then we are rendering for Household Page 
-    // if householdItems.length === 0, then we are rendering for User Page
-
-
-    // create groceryItems = [];
-  
-    // iterate through items list and push <GroceryItem > for each item
 
     return (
-    <div className="GroceryContainer">
-      <h1>Grocery List</h1>
-      <button id='AddItemBtn' onClick={() => {/* 
-      invoke the AddItemModal
-      pass into the AddItem a property of "location: fridge"
-        <AddItem location={'fridge'} addItemHandler={this.addItemHandler} userID={this.props.userID} householdID={this.props.householdID}
-      */ }}>
-      </button>
-
+    <div className='Container'>
+      <div className="ContainerHeader">
+        <h1>Grocery List</h1>
+        <button id='AddItemBtn' onClick={() => {/* 
+        invoke the AddItemModal
+        pass into the AddItem a property of "location: fridge"
+          <AddItem location={'fridge'} addItemHandler={this.addItemHandler} userID={this.props.userID} householdID={this.props.householdID}
+        */ }}>
+          Add Item
+        </button>
+      </div>  
       <div className="GroceryList">
         {groceryItems}
       </div>

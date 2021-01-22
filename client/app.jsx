@@ -43,8 +43,8 @@ class App extends Component {
               id="logo"
               src="./assets/fflogo.png"
               alt="Fresh Fridge Logo"
-              height='150px'
-              width='250px'
+              height='200px'
+              width='300px'
             ></img>
           </Link>;
       displayNavBar = <NavBar
@@ -57,12 +57,12 @@ class App extends Component {
     } else {
       displayNavBar = null;
       logo =             
-          <img
+          <img id='loginlogo'
             id="logo"
             src="./assets/fflogo.png"
             alt="Fresh Fridge Logo"
-            height='150px'
-            width='250px'>
+            height='350px'
+            width='300px'>
           </img>
     }
     
